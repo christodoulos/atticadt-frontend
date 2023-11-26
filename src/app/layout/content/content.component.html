@@ -1,0 +1,10 @@
+<div class="content-page">
+  <div class="content">
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+      <app-map #mapComponent (mapInitialized)="onMapInitialized()"></app-map>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</div>

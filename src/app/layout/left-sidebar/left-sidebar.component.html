@@ -1,0 +1,101 @@
+<!-- ========== Left Sidebar Start ========== -->
+<div class="leftside-menu">
+  <app-logo [where]="'sidebar'" />
+
+  <!-- Sidebar Hover Menu Toggle Button -->
+  <div
+    class="button-sm-hover"
+    data-bs-toggle="tooltip"
+    data-bs-placement="right"
+    title="Show Full Sidebar"
+  >
+    <i class="ri-checkbox-blank-circle-line align-middle"></i>
+  </div>
+
+  <!-- Full Sidebar Menu Close Button -->
+  <div (click)="closeSidebar()" class="button-close-fullsidebar">
+    <i class="ri-close-fill align-middle"></i>
+  </div>
+
+  <!-- prettier-ignore -->
+  <ngx-simplebar class="h-100">
+    <div id="leftside-menu-container">
+      <ul class="side-nav">
+        @for (menu of menuItems; track menu.id) {
+          @if(menu.isTitle) {
+            <li class="side-nav-title side-nav-item">
+              {{ menu.label }}
+            </li>
+          } @else {
+            @if(hasSubmenu(menu) && menu.collapsed !== undefined) {
+              <li 
+                class="side-nav-item"
+              >
+                <a
+                  href="javascript: void(0)"
+                  class="side-nav-link side-nav-link-ref"
+                  (click)="toggleMenuItem(menu, collapse)"
+                  [attr.aria-expanded]="!menu.collapsed"
+                  [attr.data-menu-key]="menu.key"
+                >
+                  @if(menu.icon) {
+                    <i [class]="menu.icon"></i>
+                  }
+                  @if(menu.badge) {
+                    <span
+                      class="badge bg-{{menu.badge.variant}} float-end"
+                    >
+                      {{menu.badge.text}}
+                    </span>
+                    <span>{{ menu.label }}</span>
+                  } @else {
+                    <span class="menu-arrow"></span>
+                  }
+                  <span> {{ menu.label }}</span>
+                </a>
+                <div #collapse="ngbCollapse" [(ngbCollapse)]="menu.collapsed">
+                  <ul class="side-nav-second-level">
+                    @for(child of menu.children; track child.id) {
+                      <li>
+                        <a
+                          [routerLink]="child.link"
+                          class="side-nav-link-ref"
+                          [attr.data-menu-key]="child.key"
+                        >
+                          @if(child.icon) {
+                            <i [class]="child.icon"></i>
+                          }
+                          <span>{{ child.label }}</span>
+                        </a>
+                      </li>
+                    }
+                  </ul>
+                </div>
+              </li>
+            } @else {
+              <li class="side-nav-item">
+                <a
+                  [routerLink]="menu.link"
+                  class="side-nav-link side-nav-link-ref"
+                  [attr.data-menu-key]="menu.key"
+                >
+                  @if(menu.icon) {
+                    <i [class]="menu.icon"></i>
+                  }
+                  @if(menu.badge) {
+                    <span
+                    class="badge bg-{{ menu.badge.variant }} rounded float-end"
+                    >
+                      {{ menu.badge.text }}
+                    </span>
+                  }
+                  <span>{{ menu.label }}</span>
+                </a>
+              </li>
+            }
+          }
+        }
+      </ul>
+    </div>
+  </ngx-simplebar>
+</div>
