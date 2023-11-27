@@ -38,7 +38,6 @@ export class TopbarComponent {
   sidebarToggle() {
     const htmlElement = document.getElementsByTagName('html')[0];
 
-    // Check if the class 'sidebar-enable' is present
     const isSidebarEnabled = htmlElement.classList.contains('sidebar-enable');
     const dataSidenavSize = htmlElement.getAttribute('data-sidenav-size');
 
