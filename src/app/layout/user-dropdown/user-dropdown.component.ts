@@ -18,4 +18,8 @@ export class UserDropdownComponent {
   onSignOut() {
     this.signOut.emit();
   }
+
+  onImageError(event: Event) {
+    (event.target as HTMLImageElement).style.display = 'none';
+  }
 }
