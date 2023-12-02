@@ -9,7 +9,6 @@ export class MapService {
 
   initializeMap(container: HTMLDivElement) {
     this.map = new Map({
-      style: 'mapbox://styles/mapbox/satellite-streets-v12',
       container,
       antialias: true,
       attributionControl: false,

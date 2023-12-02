@@ -1,11 +1,11 @@
 <div class="content-page">
   <div class="content">
-    <div class="container-fluid d-flex flex-column gap-0">
-      <app-route-title></app-route-title>
+    <div class="container-fluid">
+      <!-- <app-route-title></app-route-title> -->
       <router-outlet></router-outlet>
       <app-map #mapComponent (mapInitialized)="onMapInitialized()"></app-map>
     </div>
   </div>
-
   <app-footer></app-footer>
 </div>
+<app-off-canvas></app-off-canvas>

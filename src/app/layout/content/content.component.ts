@@ -12,6 +12,7 @@ import { FooterComponent } from '../footer/footer.component';
 import { MapComponent } from '../map/map.component';
 import { MapService } from '@atticadt/services';
 import { RouteTitleComponent } from '../route-title/route-title.component';
+import { OffCanvasComponent } from '../off-canvas/off-canvas.component';
 
 @Component({
   selector: 'app-content',
@@ -22,6 +23,7 @@ import { RouteTitleComponent } from '../route-title/route-title.component';
     RouteTitleComponent,
     MapComponent,
     FooterComponent,
+    OffCanvasComponent,
   ],
   templateUrl: './content.component.html',
   styleUrl: './content.component.css',

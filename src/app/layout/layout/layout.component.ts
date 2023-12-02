@@ -21,7 +21,6 @@ export class LayoutComponent {
   mapService = inject(MapService);
 
   onMapInitialized(elementRef: HTMLDivElement) {
-    console.log(elementRef);
     this.mapService.initializeMap(elementRef);
   }
 }
