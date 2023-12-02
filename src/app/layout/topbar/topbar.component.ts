@@ -15,7 +15,6 @@ import { TopMiddleBrandComponent } from '../top-middle-brand/top-middle-brand.co
   imports: [
     CommonModule,
     LogoComponent,
-    TopMiddleBrandComponent,
     UserDropdownComponent,
     GoogleSigninButtonModule,
   ],

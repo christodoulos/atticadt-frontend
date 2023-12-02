@@ -25,7 +25,10 @@
       </button>
     </div>
 
-    <app-top-middle-brand [subtitle]="'subtitle'"></app-top-middle-brand>
+    <span class="d-flex gap-1 align-items-center reduce-vertical">
+      <span class="fw-semibold">Attica Digital Twins</span>
+      <span class="badge bg-danger"> alpha </span>
+    </span>
 
     <!-- prettier-ignore -->
     @if(loggedIn$ | async) {

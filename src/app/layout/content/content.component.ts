@@ -11,11 +11,18 @@ import { RouterOutlet } from '@angular/router';
 import { FooterComponent } from '../footer/footer.component';
 import { MapComponent } from '../map/map.component';
 import { MapService } from '@atticadt/services';
+import { RouteTitleComponent } from '../route-title/route-title.component';
 
 @Component({
   selector: 'app-content',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, MapComponent, FooterComponent],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    RouteTitleComponent,
+    MapComponent,
+    FooterComponent,
+  ],
   templateUrl: './content.component.html',
   styleUrl: './content.component.css',
 })
