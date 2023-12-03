@@ -37,13 +37,13 @@ export const MENU: MenuItem[] = [
   {
     key: 'farmair',
     label: 'Plant Stress Detection',
-    link: '/innovations/farmair',
+    link: 'innovations/farmair',
     icon: 'ri-leaf-line',
   },
   {
     key: 'subsol',
     label: 'Subsurface Water Solutions',
-    link: '/innovations/subsol',
+    link: 'innovations/subsol',
     icon: 'ri-water-flash-line',
   },
   // Regional Services

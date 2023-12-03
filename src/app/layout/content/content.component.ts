@@ -7,24 +7,15 @@ import {
   inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
 import { FooterComponent } from '../footer/footer.component';
 import { MapComponent } from '../map/map.component';
 import { MapService } from '@atticadt/services';
-import { RouteTitleComponent } from '../route-title/route-title.component';
 import { OffCanvasComponent } from '../off-canvas/off-canvas.component';
 
 @Component({
   selector: 'app-content',
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterOutlet,
-    RouteTitleComponent,
-    MapComponent,
-    FooterComponent,
-    OffCanvasComponent,
-  ],
+  imports: [CommonModule, MapComponent, FooterComponent, OffCanvasComponent],
   templateUrl: './content.component.html',
   styleUrl: './content.component.css',
 })

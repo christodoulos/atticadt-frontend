@@ -5,10 +5,16 @@ import {
   GoogleLoginProvider,
   SocialAuthServiceConfig,
 } from '@abacritt/angularx-social-login';
-import { provideStore } from '@ngrx/store';
-import { provideStoreDevtools } from '@ngrx/store-devtools';
 
-import { authReducer } from '@atticadt/state';
+import { provideStore } from '@ngrx/store';
+import { provideEffects } from '@ngrx/effects';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
+import {
+  authReducer,
+  locationReducer,
+  setLocationEffect,
+} from '@atticadt/state';
+
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -32,7 +38,8 @@ export const appConfig: ApplicationConfig = {
       } as SocialAuthServiceConfig,
     },
     provideHttpClient(withFetch()),
-    provideStore({ auth: authReducer }),
+    provideStore({ auth: authReducer, location: locationReducer }),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
+    provideEffects([{ setLocationEffect }]),
   ],
 };

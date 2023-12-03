@@ -1,11 +1,10 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, inject } from '@angular/core';
 import { LayoutComponent } from './layout/layout/layout.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, LayoutComponent],
+  imports: [LayoutComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

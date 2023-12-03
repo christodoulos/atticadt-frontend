@@ -1,9 +1,11 @@
 import { createSelector } from '@ngrx/store';
 
 import { AuthState } from './auth';
+import { LocationState } from './location';
 
 export interface AppState {
   auth: AuthState;
+  location: LocationState;
 }
 
 // export const isLoading = createSelector(
@@ -14,3 +16,4 @@ export interface AppState {
 // );
 
 export * from './auth';
+export * from './location';
