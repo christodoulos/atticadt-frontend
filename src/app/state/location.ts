@@ -19,7 +19,7 @@ export interface LocationState {
   pitch: number;
 }
 
-export const locationInitialState: LocationState = {
+const locationInitialState: LocationState = {
   name: '',
   center: { lng: 0, lat: 0 },
   zoom: 0,
@@ -34,7 +34,7 @@ export const setLocation = createAction(
   props<{ name: string }>()
 );
 
-export const setLocationSuccess = createAction(
+const setLocationSuccess = createAction(
   '[Location] Set Location Success',
   props<LocationState>()
 );
@@ -99,7 +99,7 @@ export const setLocationEffect = createEffect(
 // Location Service
 
 @Injectable({ providedIn: 'root' })
-export class LocationService {
+class LocationService {
   constructor(private http: HttpClient) {}
 
   getLocation(name: string) {
