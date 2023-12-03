@@ -1,8 +1,8 @@
 <div class="navbar-custom">
   <div class="topbar container-fluid">
-    <div class="d-flex align-items-center gap-lg-2 gap-1">
+    <div class="d-flex align-items-center gap-1">
       <!-- Topbar Brand Logo -->
-      <div class="logo-topbar">
+      <div class="logo-topbar p-0">
         <app-logo [where]="'topbar'" />
       </div>
 
@@ -10,43 +10,42 @@
       <button (click)="sidebarToggle()" class="button-toggle-menu">
         <i class="mdi mdi-menu"></i>
       </button>
-
-      <!-- Horizontal Menu Toggle Button -->
-      <button
-        class="navbar-toggle"
-        data-bs-toggle="collapse"
-        data-bs-target="#topnav-menu-content"
-      >
-        <div class="lines">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </button>
     </div>
 
-    <span class="d-flex gap-1 align-items-center">
+    <span class="d-flex align-items-center">
+      <span class="badge bg-danger rotate"> alpha </span>
       <span class="fw-bold fs-4">Attica Digital Twins</span>
-      <span class="badge bg-danger"> alpha </span>
     </span>
 
-    <!-- prettier-ignore -->
-    @if(loggedIn$ | async) {
-    <app-user-dropdown
-      [email]="email$ | async"
-      [name]="name$ | async"
-      [photoUrl]="photoUrl$ | async"
-      (signOut)="signOut()"
-    ></app-user-dropdown>
-    } @else {
     <ul class="topbar-menu d-flex align-items-center gap-3">
+      <li>
+        <a
+          class="nav-link"
+          data-bs-toggle="offcanvas"
+          href="#theme-settings-offcanvas"
+        >
+          <i class="ri-settings-3-line font-22"></i>
+        </a>
+      </li>
+
+      <!-- prettier-ignore -->
+      @if(loggedIn$ | async) {
+
+      <app-user-dropdown
+        [email]="email$ | async"
+        [name]="name$ | async"
+        [photoUrl]="photoUrl$ | async"
+        (signOut)="signOut()"
+      ></app-user-dropdown>
+
+      } @else {
       <li>
         <a class="nav-link">
           <asl-google-signin-button type="icon" size="large">
           </asl-google-signin-button
         ></a>
       </li>
+      }
     </ul>
-    }
   </div>
 </div>

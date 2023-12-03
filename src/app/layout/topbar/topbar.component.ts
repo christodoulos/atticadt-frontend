@@ -7,7 +7,7 @@ import { AppState, email, loggedIn, name, photoUrl } from '@atticadt/state';
 import { Store } from '@ngrx/store';
 import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 import { AuthService } from '@atticadt/services';
-import { TopMiddleBrandComponent } from '../top-middle-brand/top-middle-brand.component';
+import { RibbonDangerTwoComponent } from 'src/app/ui/ribbon-danger-two/ribbon-danger-two.component';
 
 @Component({
   selector: 'app-topbar',
@@ -17,6 +17,7 @@ import { TopMiddleBrandComponent } from '../top-middle-brand/top-middle-brand.co
     LogoComponent,
     UserDropdownComponent,
     GoogleSigninButtonModule,
+    RibbonDangerTwoComponent,
   ],
   templateUrl: './topbar.component.html',
   styleUrl: './topbar.component.css',

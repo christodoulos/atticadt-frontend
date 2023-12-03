@@ -5,7 +5,7 @@
   --ct-leftbar-width: 260px;
   --ct-leftbar-width-md: 160px;
   --ct-leftbar-width-sm: 70px;
-  --ct-leftbar-condensed-height: 2000px;
+  --ct-leftbar-condensed-height: (100vh - 70px);
   --ct-topbar-height: 70px;
   --ct-menu-item-icon-size: 1.2rem;
   --ct-menu-item-font-size: 0.9375rem;

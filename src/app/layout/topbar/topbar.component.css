@@ -1,0 +1,5 @@
+.rotate {
+  transform: rotate(-60deg);
+  margin-right: -7px;
+  margin-bottom: 10px;
+}
