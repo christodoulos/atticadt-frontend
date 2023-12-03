@@ -19,6 +19,11 @@
 
     <ul class="topbar-menu d-flex align-items-center gap-3">
       <li>
+        <a class="nav-link" (click)="saveMap()">
+          <i class="ri-camera-line font-22"></i>
+        </a>
+      </li>
+      <li>
         <a
           class="nav-link"
           data-bs-toggle="offcanvas"
@@ -28,7 +33,6 @@
         </a>
       </li>
 
-      <!-- prettier-ignore -->
       @if(loggedIn$ | async) {
 
       <app-user-dropdown
@@ -39,12 +43,14 @@
       ></app-user-dropdown>
 
       } @else {
+
       <li>
         <a class="nav-link">
           <asl-google-signin-button type="icon" size="large">
           </asl-google-signin-button
         ></a>
       </li>
+
       }
     </ul>
   </div>

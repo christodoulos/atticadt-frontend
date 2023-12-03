@@ -17,3 +17,4 @@ export interface AppState {
 
 export * from './auth';
 export * from './location';
+export * from './ui-action';

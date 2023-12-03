@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 import { AuthService } from '@atticadt/services';
 import { RibbonDangerTwoComponent } from 'src/app/ui/ribbon-danger-two/ribbon-danger-two.component';
+import { saveMap } from '@atticadt/state';
 
 @Component({
   selector: 'app-topbar',
@@ -58,5 +59,9 @@ export class TopbarComponent {
     } else {
       this.renderer.addClass(htmlElement, 'sidebar-enable');
     }
+  }
+
+  saveMap() {
+    this.store.dispatch(saveMap());
   }
 }

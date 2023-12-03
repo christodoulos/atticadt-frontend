@@ -13,6 +13,7 @@ import {
   authReducer,
   locationReducer,
   setLocationEffect,
+  saveMapEffect,
 } from '@atticadt/state';
 
 import { routes } from './app.routes';
@@ -40,6 +41,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
     provideStore({ auth: authReducer, location: locationReducer }),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
-    provideEffects([{ setLocationEffect }]),
+    provideEffects([{ setLocationEffect, saveMapEffect }]),
   ],
 };

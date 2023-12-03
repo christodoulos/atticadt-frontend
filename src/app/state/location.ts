@@ -100,7 +100,8 @@ export const setLocationEffect = createEffect(
 
 @Injectable({ providedIn: 'root' })
 class LocationService {
-  constructor(private http: HttpClient) {}
+  http = inject(HttpClient);
+  // constructor(private http: HttpClient) {}
 
   getLocation(name: string) {
     return this.http.get<LocationState>(
