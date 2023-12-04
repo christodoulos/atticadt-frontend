@@ -8,6 +8,7 @@
       aria-haspopup="false"
       aria-expanded="false"
     >
+      @if (!imgError) {
       <span class="account-user-avatar">
         <img
           [src]="photoUrl ?? 'assets/images/users/avatar-1.jpg'"
@@ -17,6 +18,7 @@
           (error)="onImageError($event)"
         />
       </span>
+      }
       <span class="d-lg-flex flex-column d-none small">
         <span class="fw-semibold">{{ name ?? "name" }}</span>
         <span class="small">{{ email ?? "email" }}</span>

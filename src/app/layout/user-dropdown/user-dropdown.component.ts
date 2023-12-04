@@ -14,6 +14,7 @@ export class UserDropdownComponent {
   @Input() email: string | null | undefined;
   @Input() photoUrl: string | null | undefined;
   @Output() signOut = new EventEmitter<void>();
+  imgError = false;
 
   onSignOut() {
     this.signOut.emit();
@@ -21,5 +22,6 @@ export class UserDropdownComponent {
 
   onImageError(event: Event) {
     (event.target as HTMLImageElement).style.display = 'none';
+    this.imgError = true;
   }
 }

@@ -10,10 +10,7 @@ export const saveMapEffect = createEffect(
   (actions$ = inject(Actions), service = inject(UIActionService)) => {
     return actions$.pipe(
       ofType(saveMap),
-      tap(() => {
-        console.log('aaaaaaaaaaaaaaa');
-        service.downloadMap();
-      })
+      tap(() => service.downloadMap())
     );
   },
   { dispatch: false, functional: true }
