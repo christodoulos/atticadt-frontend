@@ -2,7 +2,7 @@
 :root {
   --ct-logo-lg-height: 44px;
   --ct-logo-sm-height: 22px;
-  --ct-leftbar-width: 260px;
+  --ct-leftbar-width: 270px;
   --ct-leftbar-width-md: 160px;
   --ct-leftbar-width-sm: 70px;
   --ct-leftbar-condensed-height: (100vh - 70px);
@@ -14008,7 +14008,7 @@ html[data-menu-color="dark"] .logo.logo-dark {
 .content-page {
   position: relative;
   margin-left: var(--ct-leftbar-width);
-  min-height: calc(100vh - var(--ct-topbar-height) - 2px);
+  max-height: calc(100vh - var(--ct-topbar-height) - 2px);
   padding: 0 0.75rem var(--ct-footer-height);
   -webkit-transition: all 0.25s ease-in-out;
   transition: all 0.25s ease-in-out;

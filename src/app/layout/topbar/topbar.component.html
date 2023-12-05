@@ -10,12 +10,12 @@
       <button (click)="sidebarToggle()" class="button-toggle-menu">
         <i class="mdi mdi-menu"></i>
       </button>
-    </div>
 
-    <span class="d-flex align-items-center">
-      <span class="badge bg-danger rotate"> alpha </span>
-      <span class="fw-bold fs-4">Attica Digital Twins</span>
-    </span>
+      <span class="d-flex align-items-center">
+        <span class="badge bg-danger rotate"> alpha </span>
+        <span class="fw-bold fs-4 text-truncate">Attica Digital Twins</span>
+      </span>
+    </div>
 
     <ul class="topbar-menu d-flex align-items-center gap-3">
       <li>
@@ -32,21 +32,21 @@
           <i class="ri-settings-3-line font-22"></i>
         </a>
       </li>
+      @if(loggedIn$ | async) {
+      <app-user-dropdown
+        [email]="email$ | async"
+        [name]="name$ | async"
+        [photoUrl]="photoUrl$ | async"
+        (signOut)="signOut()"
+      ></app-user-dropdown>
+      } @else {
       <li>
-        @if(loggedIn$ | async) {
-        <app-user-dropdown
-          [email]="email$ | async"
-          [name]="name$ | async"
-          [photoUrl]="photoUrl$ | async"
-          (signOut)="signOut()"
-        ></app-user-dropdown>
-        } @else {
         <a class="nav-link">
           <asl-google-signin-button type="icon" size="large">
           </asl-google-signin-button
         ></a>
-        }
       </li>
+      }
     </ul>
   </div>
 </div>
