@@ -14009,7 +14009,7 @@ html[data-menu-color="dark"] .logo.logo-dark {
   position: relative;
   margin-left: var(--ct-leftbar-width);
   max-height: calc(100vh - var(--ct-topbar-height) - 2px);
-  padding: 0 0.75rem var(--ct-footer-height);
+  padding: 0 0 var(--ct-footer-height);
   -webkit-transition: all 0.25s ease-in-out;
   transition: all 0.25s ease-in-out;
 }
