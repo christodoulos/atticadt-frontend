@@ -1,10 +1,14 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { LayoutComponent } from './layout/layout/layout.component';
+import { Component } from '@angular/core';
+import {
+  TopbarComponent,
+  LeftSidebarComponent,
+  ContentComponent,
+} from '@atticadt/layout';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [LayoutComponent],
+  imports: [TopbarComponent, LeftSidebarComponent, ContentComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

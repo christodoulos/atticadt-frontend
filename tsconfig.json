@@ -22,7 +22,8 @@
     "lib": ["ES2022", "dom"],
     "paths": {
       "@atticadt/services": ["./src/app/services"],
-      "@atticadt/state": ["./src/app/state"]
+      "@atticadt/state": ["./src/app/state"],
+      "@atticadt/layout": ["./src/app/layout"]
     }
   },
   "angularCompilerOptions": {

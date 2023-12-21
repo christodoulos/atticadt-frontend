@@ -1,20 +1,18 @@
 import { createSelector } from '@ngrx/store';
-
 import { AuthState } from './auth';
-import { LocationState } from './location';
+import { MapState } from './map/map.interfaces';
 
 export interface AppState {
   auth: AuthState;
-  location: LocationState;
+  map: MapState;
 }
 
-// export const isLoading = createSelector(
-//   (AppState) => AppState,
-//   nutsIsLoading,
-//   sourceIsLoading,
-//   selectMapIsLoading
-// );
+export const dtIsLoading = createSelector(
+  (state: AppState) => state.map.isLoading,
+  (state: AppState) => state.auth.isLoading,
+  (mapIsLoading, userIsLoading) => mapIsLoading || userIsLoading
+);
 
 export * from './auth';
-export * from './location';
 export * from './ui-action';
+export * from './map';

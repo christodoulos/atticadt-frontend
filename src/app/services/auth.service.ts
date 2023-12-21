@@ -18,7 +18,7 @@ export class AuthService {
         console.log(user);
         const { idToken } = user;
         this.http
-          .post('https://backend.atticadt.uwmh.eu/api/auth/google-login', {
+          .post('http://localhost:3456/api/auth/google-login', {
             idToken,
           })
           .subscribe((res) => {

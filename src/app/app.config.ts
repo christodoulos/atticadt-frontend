@@ -11,9 +11,11 @@ import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import {
   authReducer,
-  locationReducer,
+  loginEffect,
+  mapReducer,
   setLocationEffect,
   saveMapEffect,
+  mapInitializeEffect,
 } from '@atticadt/state';
 
 import { routes } from './app.routes';
@@ -39,8 +41,13 @@ export const appConfig: ApplicationConfig = {
       } as SocialAuthServiceConfig,
     },
     provideHttpClient(withFetch()),
-    provideStore({ auth: authReducer, location: locationReducer }),
+    provideStore({
+      auth: authReducer,
+      map: mapReducer,
+    }),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
-    provideEffects([{ setLocationEffect, saveMapEffect }]),
+    provideEffects([
+      { loginEffect, setLocationEffect, saveMapEffect, mapInitializeEffect },
+    ]),
   ],
 };

@@ -3,18 +3,27 @@ import { CommonModule } from '@angular/common';
 import { LogoComponent } from '../logo/logo.component';
 import { UserDropdownComponent } from '../user-dropdown/user-dropdown.component';
 
-import { AppState, email, loggedIn, name, photoUrl } from '@atticadt/state';
+import {
+  AppState,
+  dtIsLoading,
+  email,
+  loggedIn,
+  name,
+  photoUrl,
+} from '@atticadt/state';
 import { Store } from '@ngrx/store';
 import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 import { AuthService } from '@atticadt/services';
 import { RibbonDangerTwoComponent } from 'src/app/ui/ribbon-danger-two/ribbon-danger-two.component';
 import { saveMap } from '@atticadt/state';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-topbar',
   standalone: true,
   imports: [
     CommonModule,
+    NgbTooltipModule,
     LogoComponent,
     UserDropdownComponent,
     GoogleSigninButtonModule,
@@ -30,6 +39,7 @@ export class TopbarComponent {
   photoUrl$ = this.store.select(photoUrl);
   name$ = this.store.select(name);
   email$ = this.store.select(email);
+  isLoading$ = this.store.select(dtIsLoading);
   renderer = inject(Renderer2);
 
   signOut() {
