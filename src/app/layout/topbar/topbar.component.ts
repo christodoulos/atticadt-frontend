@@ -1,4 +1,9 @@
-import { Component, Renderer2, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Renderer2,
+  inject,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LogoComponent } from '../logo/logo.component';
 import { UserDropdownComponent } from '../user-dropdown/user-dropdown.component';
@@ -31,6 +36,7 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   templateUrl: './topbar.component.html',
   styleUrl: './topbar.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TopbarComponent {
   authService = inject(AuthService);

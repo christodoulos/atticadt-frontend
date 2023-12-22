@@ -15,9 +15,9 @@
       </button>
 
       <span class="fw-bold fs-4 text-truncate">Attica Digital Twins</span>
-      <!-- @if (isLoading$ | async) {
+      @if (isLoading$ | async) {
       <div class="spinner-grow text-primary" role="status"></div>
-      } -->
+      }
     </div>
 
     <ul class="topbar-menu d-flex align-items-center gap-3">
@@ -53,7 +53,8 @@
       } @else {
       <li ngbTooltip="Sign In with Google" container="body">
         <a class="nav-link">
-          <asl-google-signin-button type="icon"> </asl-google-signin-button
+          <asl-google-signin-button type="icon" shape="circle">
+          </asl-google-signin-button
         ></a>
       </li>
       }

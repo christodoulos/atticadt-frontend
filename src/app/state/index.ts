@@ -8,9 +8,9 @@ export interface AppState {
 }
 
 export const dtIsLoading = createSelector(
-  (state: AppState) => state.map.isLoading,
-  (state: AppState) => state.auth.isLoading,
-  (mapIsLoading, userIsLoading) => mapIsLoading || userIsLoading
+  (state: AppState) => state.auth,
+  (state: AppState) => state.map,
+  (auth, map) => auth.isLoading || map.isLoading
 );
 
 export * from './auth';
