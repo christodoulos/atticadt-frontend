@@ -33,11 +33,28 @@ export class MapService {
     return this.map?.getBounds().toArray();
   }
 
-  flyTo(location: MapLocation) {
-    this.map?.flyTo(location);
-    this.map?.once('moveend', () => {
-      const bounds = this.map?.getBounds().toArray() ?? [];
-      this.store.dispatch(setBounds({ bounds }));
+  // async flyTo(location: MapLocation) {
+  //   this.map?.flyTo({ ...location });
+  //   return await this.map?.once('moveend', () => {
+  //     const bounds = this.map?.getBounds().toArray() ?? [];
+  //     this.store.dispatch(setBounds({ bounds }));
+  //     return bounds;
+  //   });
+  // }
+
+  async flyTo(location: MapLocation): Promise<number[][]> {
+    return new Promise((resolve, reject) => {
+      if (!this.map) {
+        reject('Map is not initialized');
+        return;
+      }
+
+      this.map.flyTo({ ...location });
+      this.map.once('moveend', () => {
+        const bounds = this.map?.getBounds().toArray() ?? [];
+        console.log('MAP move ended to bounds:', bounds);
+        resolve(bounds);
+      });
     });
   }
 }

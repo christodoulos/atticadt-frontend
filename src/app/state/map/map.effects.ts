@@ -4,10 +4,11 @@ import { MapService } from './map.service';
 import {
   mapInitialize,
   mapInitialized,
+  setBounds,
   setLocation,
   setLocationSuccess,
 } from './map.actions';
-import { map, switchMap, tap } from 'rxjs';
+import { concat, from, map, of, switchMap, tap } from 'rxjs';
 
 export const mapInitializeEffect = createEffect(
   (actions$ = inject(Actions), mapService = inject(MapService)) =>
@@ -27,11 +28,14 @@ export const setLocationEffect = createEffect(
       ofType(setLocation),
       map((action) => action.name),
       switchMap((name) => mapService.getLocation(name)),
-      map((location) => {
-        mapService.flyTo(location);
-        return setLocationSuccess({ location });
-      })
-      // tap((payload) => mapService.flyTo(payload.location))
+      switchMap((location) =>
+        concat(
+          of(setLocationSuccess({ location })),
+          from(mapService.flyTo(location)).pipe(
+            map((bounds) => setBounds({ bounds }))
+          )
+        )
+      )
     ),
   { functional: true }
 );
