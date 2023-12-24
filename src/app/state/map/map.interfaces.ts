@@ -49,13 +49,17 @@ export interface MapState {
   terrain: boolean;
   skyLayer: boolean;
   location: string;
+  showPlaces: boolean;
+  'poi-label': boolean;
+  'road-label': boolean;
+  'transit-label': boolean;
   customLayers?: CustomLayerInterface[];
 }
 
 export const MapInitialState: MapState = {
   isInitialized: false,
   isLoading: false,
-  style: 'mapbox://styles/mapbox/streets-v11',
+  style: 'mapbox://styles/christodoulos/clqjoryfl00o301qvhaat7oj4',
   bounds: [
     [-180, -90],
     [180, 90],
@@ -69,4 +73,8 @@ export const MapInitialState: MapState = {
   terrain: false,
   skyLayer: false,
   location: '',
+  showPlaces: false,
+  'poi-label': true,
+  'road-label': false,
+  'transit-label': true,
 };

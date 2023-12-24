@@ -40,6 +40,7 @@
     "@angular/localize": "^17.0.8",
     "@types/file-saver": "^2.0.7",
     "@types/jasmine": "~5.1.0",
+    "@types/mapbox__mapbox-sdk": "^0.13.10",
     "@types/mapbox-gl": "^2.7.19",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",

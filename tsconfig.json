@@ -23,7 +23,8 @@
     "paths": {
       "@atticadt/services": ["./src/app/services"],
       "@atticadt/state": ["./src/app/state"],
-      "@atticadt/layout": ["./src/app/layout"]
+      "@atticadt/layout": ["./src/app/layout"],
+      "@atticadt/ui": ["./src/app/ui"]
     }
   },
   "angularCompilerOptions": {

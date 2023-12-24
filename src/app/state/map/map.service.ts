@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { CustomLayerInterface, LngLat, LngLatLike, Map } from 'mapbox-gl';
+import { CustomLayerInterface, LngLat, Map } from 'mapbox-gl';
 import { Threebox } from 'threebox-plugin';
 
 import {
@@ -33,7 +33,7 @@ export class MapService {
   initializeMap() {
     this.map = new Map({
       container: 'map',
-      // style: 'mapbox://styles/mapbox/satellite-streets-v12',
+      style: 'mapbox://styles/christodoulos/clqjoryfl00o301qvhaat7oj4',
       antialias: true,
       attributionControl: false,
       preserveDrawingBuffer: true,
@@ -146,6 +146,13 @@ export class MapService {
     return this.map?.getBounds().toArray();
   }
 
+  getLayers() {
+    const layers = this.map?.getStyle().layers;
+    for (const layer of layers ?? []) {
+      console.log(layer);
+    }
+  }
+
   async flyTo(location: MapLocation): Promise<number[][]> {
     return new Promise((resolve, reject) => {
       if (!this.map) {
@@ -161,4 +168,8 @@ export class MapService {
       });
     });
   }
+
+  // setMapConfigProperty(property: { property: string; value: any }) {
+  //   this.map?.setLayoutProperty(property.property, property.value);
+  // }
 }

@@ -7,6 +7,7 @@ import {
   setBounds,
   setLocation,
   setLocationSuccess,
+  setMapConfigProperty,
   showCustomLayers,
 } from './map.actions';
 import { concat, from, map, of, switchMap, tap } from 'rxjs';
@@ -75,6 +76,23 @@ export const hideCustomLayersEffect = createEffect(
         for (const customLayer of mapService.locationCustomLayers) {
           mapService.map?.removeLayer(customLayer);
         }
+      })
+    ),
+  { dispatch: false, functional: true }
+);
+
+export const setMapConfigPropertyEffect = createEffect(
+  (actions$ = inject(Actions), mapService = inject(MapService)) =>
+    actions$.pipe(
+      ofType(setMapConfigProperty),
+      map((action) => action),
+      tap((action) => {
+        const { property, value } = action;
+        mapService.map?.setLayoutProperty(
+          property,
+          'visibility',
+          value ? 'visible' : 'none'
+        );
       })
     ),
   { dispatch: false, functional: true }

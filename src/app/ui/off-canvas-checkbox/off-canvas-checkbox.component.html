@@ -1,0 +1,13 @@
+<div class="d-flex justify-content-between align-items-center">
+  <label class="font-16 fw-bold m-0" for="{{ name }}">{{ prompt }}</label>
+  <div class="form-check form-switch">
+    <input
+      type="checkbox"
+      class="form-check-input"
+      [name]="name"
+      [id]="name"
+      [(ngModel)]="model"
+      (ngModelChange)="onChange(name, model)"
+    />
+  </div>
+</div>

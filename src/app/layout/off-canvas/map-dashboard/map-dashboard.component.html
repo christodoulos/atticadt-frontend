@@ -1,0 +1,25 @@
+<h5 class="mt-0 font-16 fw-bold mb-2">Map Labels</h5>
+<ui-off-canvas-checkbox
+  [prompt]="'Show place labels'"
+  [name]="'state-label'"
+  [model]="true"
+  (toggle)="onToggle($event)"
+></ui-off-canvas-checkbox>
+<ui-off-canvas-checkbox
+  [prompt]="'Show POI labels'"
+  [name]="'poi-label'"
+  [model]="true"
+  (toggle)="onToggle($event)"
+></ui-off-canvas-checkbox>
+<ui-off-canvas-checkbox
+  [prompt]="'Show road labels'"
+  [name]="'road-label'"
+  [model]="true"
+  (toggle)="onToggle($event)"
+></ui-off-canvas-checkbox>
+<ui-off-canvas-checkbox
+  [prompt]="'Show transit labels'"
+  [name]="'transit-label'"
+  [model]="true"
+  (toggle)="onToggle($event)"
+></ui-off-canvas-checkbox>

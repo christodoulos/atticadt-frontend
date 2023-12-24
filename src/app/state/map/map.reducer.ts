@@ -13,6 +13,7 @@ import {
   setLng,
   setLocation,
   setLocationSuccess,
+  setMapConfigProperty,
   setPitch,
   setShadows,
   setSkyLayer,
@@ -174,6 +175,11 @@ export const mapReducer = createReducer(
   //   ...state,
   //   antialias: !state.antialias,
   // })),
+
+  on(setMapConfigProperty, (state, action) => ({
+    ...state,
+    [action.property]: action.value,
+  })),
 
   //   Toggle Sky Layer action
   on(toggleSkyLayer, (state) => ({

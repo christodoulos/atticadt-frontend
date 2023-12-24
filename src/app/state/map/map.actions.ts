@@ -84,6 +84,11 @@ export const setDateTime = createAction(
   props<{ dateTime: Date }>()
 );
 
+export const setMapConfigProperty = createAction(
+  '[Map] Set Map Config Property',
+  props<{ property: string; value: any }>()
+);
+
 export const toggleFollow = createAction('[Map] Toggle Follow');
 
 export const toggleAntialias = createAction('[Map] Toggle Antialias');

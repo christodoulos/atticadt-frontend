@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../footer/footer.component';
 import { MapComponent } from '../map/map.component';
-import { OffCanvasComponent } from '../off-canvas/off-canvas.component';
+import { OffCanvasComponent } from '../off-canvas/off-canvas/off-canvas.component';
 
 @Component({
   selector: 'app-content',

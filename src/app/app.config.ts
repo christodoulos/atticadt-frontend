@@ -18,6 +18,7 @@ import {
   mapInitializeEffect,
   showCustomLayersEffect,
   hideCustomLayersEffect,
+  setMapConfigPropertyEffect,
 } from '@atticadt/state';
 
 import { routes } from './app.routes';
@@ -56,6 +57,7 @@ export const appConfig: ApplicationConfig = {
         mapInitializeEffect,
         showCustomLayersEffect,
         hideCustomLayersEffect,
+        setMapConfigPropertyEffect,
       },
     ]),
   ],
