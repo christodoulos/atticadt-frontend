@@ -16,6 +16,8 @@ import {
   setLocationEffect,
   saveMapEffect,
   mapInitializeEffect,
+  showCustomLayersEffect,
+  hideCustomLayersEffect,
 } from '@atticadt/state';
 
 import { routes } from './app.routes';
@@ -47,7 +49,14 @@ export const appConfig: ApplicationConfig = {
     }),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     provideEffects([
-      { loginEffect, setLocationEffect, saveMapEffect, mapInitializeEffect },
+      {
+        loginEffect,
+        setLocationEffect,
+        saveMapEffect,
+        mapInitializeEffect,
+        showCustomLayersEffect,
+        hideCustomLayersEffect,
+      },
     ]),
   ],
 };

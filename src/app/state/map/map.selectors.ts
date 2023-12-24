@@ -88,3 +88,8 @@ export const terrain = createSelector(
 //   selectMapState,
 //   (state: MapState) => state.dateTime
 // );
+
+export const customLayers = createSelector(
+  selectMapState,
+  (state: MapState) => state.customLayers
+);

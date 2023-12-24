@@ -1,5 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { AppState, setLocation } from '@atticadt/state';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { AppState, setLocation, hideCustomLayers } from '@atticadt/state';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -9,10 +9,14 @@ import { Store } from '@ngrx/store';
   templateUrl: './athens-plant-nursery.component.html',
   styleUrl: './athens-plant-nursery.component.css',
 })
-export class AthensPlantNurseryComponent {
+export class AthensPlantNurseryComponent implements OnInit, OnDestroy {
   store = inject(Store<AppState>);
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.store.dispatch(setLocation({ name: 'athens-plant-nursery' }));
+  }
+
+  async ngOnDestroy() {
+    this.store.dispatch(hideCustomLayers());
   }
 }

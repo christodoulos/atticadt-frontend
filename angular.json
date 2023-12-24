@@ -20,6 +20,9 @@
             "tsConfig": "tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
+              "src/assets/vendor/daterangepicker/daterangepicker.css",
+              "src/assets/vendor/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css",
+              "src/assets/css/icons.min.css",
               "node_modules/mapbox-gl/dist/mapbox-gl.css",
               "src/styles.css"
             ],

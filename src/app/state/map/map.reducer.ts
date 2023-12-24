@@ -201,7 +201,7 @@ export const mapReducer = createReducer(
   on(setLocationSuccess, (state, action) => {
     const location = action.location.name;
     const { lat, lng } = action.location.center;
-    const { center, zoom, bearing, pitch } = action.location;
+    const { center, zoom, bearing, pitch, glbModels } = action.location;
     return {
       ...state,
       isLoading: false,
@@ -212,6 +212,7 @@ export const mapReducer = createReducer(
       zoom,
       bearing,
       pitch,
+      glbModels,
     };
   })
 );

@@ -1,9 +1,38 @@
+import { CustomLayerInterface, LngLat, LngLatLike } from 'mapbox-gl';
+
+export type AnchorType =
+  | 'auto'
+  | 'center'
+  | 'top'
+  | 'bottom'
+  | 'left'
+  | 'right'
+  | 'top-left'
+  | 'top-right'
+  | 'bottom-left'
+  | 'bottom-right';
+
+export type ThreeDType = { x: number; y: number; z: number };
+
+export interface GLBModel {
+  id: string;
+  where: LngLat;
+  elevation: number;
+  anchor: AnchorType;
+  glb: string;
+  scale: ThreeDType;
+  rotation: ThreeDType;
+  castShadow: boolean;
+  tooltip: string;
+}
+
 export interface MapLocation {
   name: string;
   center: { lng: number; lat: number };
   zoom: number;
   bearing: number;
   pitch: number;
+  glbModels?: GLBModel[];
 }
 
 export interface MapState {
@@ -20,6 +49,7 @@ export interface MapState {
   terrain: boolean;
   skyLayer: boolean;
   location: string;
+  customLayers?: CustomLayerInterface[];
 }
 
 export const MapInitialState: MapState = {

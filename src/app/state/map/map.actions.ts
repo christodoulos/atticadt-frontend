@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { MapLocation, MapState } from './map.interfaces';
+import { CustomLayerInterface } from 'mapbox-gl';
 
 export const mapInitialize = createAction('[Map] Initialize');
 
@@ -104,3 +105,10 @@ export const setLocationSuccess = createAction(
   '[Map] Set Location Success',
   props<{ location: MapLocation }>()
 );
+
+export const showCustomLayers = createAction(
+  '[Map] Show Custom Layers',
+  props<{ customLayers: CustomLayerInterface[] }>()
+);
+
+export const hideCustomLayers = createAction('[Map] Hide Custom Layers');
