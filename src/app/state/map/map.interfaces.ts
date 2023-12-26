@@ -1,4 +1,4 @@
-import { CustomLayerInterface, LngLat, LngLatLike } from 'mapbox-gl';
+import { CustomLayerInterface, LngLat } from 'mapbox-gl';
 
 export type AnchorType =
   | 'auto'
@@ -48,7 +48,7 @@ export interface MapState {
   lng: number;
   terrain: boolean;
   skyLayer: boolean;
-  location: string;
+  location: MapLocation;
   showPlaces: boolean;
   'poi-label': boolean;
   'road-label': boolean;
@@ -72,7 +72,13 @@ export const MapInitialState: MapState = {
   lng: 0,
   terrain: false,
   skyLayer: false,
-  location: '',
+  location: {
+    name: '',
+    center: { lng: 0, lat: 0 },
+    zoom: 0,
+    bearing: 0,
+    pitch: 0,
+  },
   showPlaces: false,
   'poi-label': true,
   'road-label': false,

@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState, mapInitialize } from '@atticadt/state';
+import { AppState, mapInitialize, MapService } from '@atticadt/state';
 
 @Component({
   selector: 'app-map',
@@ -11,7 +11,8 @@ import { AppState, mapInitialize } from '@atticadt/state';
 export class MapComponent implements AfterViewInit {
   store = inject(Store<AppState>);
 
-  ngAfterViewInit() {
+  async ngAfterViewInit() {
+    console.log('MapComponent.ngAfterViewInit()');
     this.store.dispatch(mapInitialize());
   }
 }

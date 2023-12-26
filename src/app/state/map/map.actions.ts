@@ -111,9 +111,9 @@ export const setLocationSuccess = createAction(
   props<{ location: MapLocation }>()
 );
 
-export const showCustomLayers = createAction(
-  '[Map] Show Custom Layers',
+export const addCustomLayers = createAction(
+  '[Map] Add Custom Layers',
   props<{ customLayers: CustomLayerInterface[] }>()
 );
 
-export const hideCustomLayers = createAction('[Map] Hide Custom Layers');
+export const removeCustomLayers = createAction('[Map] Remove Custom Layers');

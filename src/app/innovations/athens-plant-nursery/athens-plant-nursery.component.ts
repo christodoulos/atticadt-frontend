@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { AppState, setLocation, hideCustomLayers } from '@atticadt/state';
+import { AppState, setLocation, removeCustomLayers } from '@atticadt/state';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -16,7 +16,8 @@ export class AthensPlantNurseryComponent implements OnInit, OnDestroy {
     this.store.dispatch(setLocation({ name: 'athens-plant-nursery' }));
   }
 
-  async ngOnDestroy() {
-    this.store.dispatch(hideCustomLayers());
+  ngOnDestroy() {
+    console.log('AthensPlantNurseryComponent.ngOnDestroy()');
+    this.store.dispatch(removeCustomLayers());
   }
 }

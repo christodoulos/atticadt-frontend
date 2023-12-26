@@ -6,7 +6,7 @@ import { AthensPlantNurseryComponent } from './innovations/athens-plant-nursery/
 
 // prettier-ignore
 export const routes: Route[] = [
-  { path: 'innovations/athens-plant-nursery', component: AthensPlantNurseryComponent, },
+  { path: 'innovations/athens-plant-nursery', component: AthensPlantNurseryComponent},
   { path: 'innovations/farmair', component: FarmairComponent },
   { path: '', component: InventoryComponent },
 ];

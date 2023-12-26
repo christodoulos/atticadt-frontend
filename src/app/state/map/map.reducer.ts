@@ -205,20 +205,18 @@ export const mapReducer = createReducer(
   })),
 
   on(setLocationSuccess, (state, action) => {
-    const location = action.location.name;
+    const { center, zoom, bearing, pitch } = action.location;
     const { lat, lng } = action.location.center;
-    const { center, zoom, bearing, pitch, glbModels } = action.location;
     return {
       ...state,
       isLoading: false,
-      location,
-      center,
+      location: action.location,
       lat,
       lng,
+      center,
       zoom,
       bearing,
       pitch,
-      glbModels,
     };
   })
 );

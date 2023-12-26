@@ -28,8 +28,6 @@ export class MapService {
   http = inject(HttpClient);
   store = inject(Store<AppState>);
 
-  locationCustomLayers: string[] = []; // Holds all location's custom layers
-
   initializeMap() {
     this.map = new Map({
       container: 'map',
@@ -63,7 +61,7 @@ export class MapService {
   async glbLayer(
     id: string,
     where: LngLat,
-    elevation = 0,
+    elevation: number,
     modelFile: string,
     scale: ThreeDType = { x: 1, y: 1, z: 1 },
     rotation: ThreeDType = { x: 0, y: 0, z: 0 },
@@ -77,12 +75,6 @@ export class MapService {
         return;
       }
 
-      const terrainElevation =
-        this.map?.queryTerrainElevation([where.lng, where.lat], {
-          exaggerated: true,
-        }) ?? 0;
-      console.log(`Map elevation at ${where} is ${terrainElevation} meters`);
-
       const options = {
         obj: modelFile,
         type: 'gltf',
@@ -92,7 +84,19 @@ export class MapService {
         anchor,
       };
 
-      this.tb.loadObj(options, (model: any) => {
+      this.tb.loadObj(options, async (model: any) => {
+        // const terrainElevation =
+        //   this.map?.queryTerrainElevation([where.lng, where.lat], {
+        //     exaggerated: false,
+        //   }) ?? 0;
+        const terrainElevation = await this.getTerrainElevation(
+          where.lng,
+          where.lat
+        );
+        console.log(
+          `Map elevation at (${where.lng} ${where.lat}) is ${terrainElevation} meters`
+        );
+
         const pos = [where.lng, where.lat, elevation + terrainElevation];
         model.setCoords(pos);
 
@@ -117,6 +121,7 @@ export class MapService {
   }
 
   async addGLBModels(models: GLBModel[]) {
+    console.log('addGLBModels', models);
     const promises: CustomLayerInterface[] = [];
     for (const model of models) {
       promises.push(
@@ -169,7 +174,19 @@ export class MapService {
     });
   }
 
-  // setMapConfigProperty(property: { property: string; value: any }) {
-  //   this.map?.setLayoutProperty(property.property, property.value);
-  // }
+  async getTerrainElevation(lng: number, lat: number): Promise<number> {
+    return new Promise((resolve, reject) => {
+      // Ensure the map is idle before querying
+      if (!this.map) {
+        reject('Map is not initialized');
+        return;
+      }
+
+      this.map.once('moveend', () => {
+        const coordinates: mapboxgl.LngLatLike = [lng, lat];
+        const elevation = this.map!.queryTerrainElevation(coordinates) ?? 0;
+        resolve(elevation);
+      });
+    });
+  }
 }

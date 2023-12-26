@@ -16,8 +16,8 @@ import {
   setLocationEffect,
   saveMapEffect,
   mapInitializeEffect,
-  showCustomLayersEffect,
-  hideCustomLayersEffect,
+  addCustomLayersEffect,
+  removeCustomLayersEffect,
   setMapConfigPropertyEffect,
 } from '@atticadt/state';
 
@@ -55,8 +55,8 @@ export const appConfig: ApplicationConfig = {
         setLocationEffect,
         saveMapEffect,
         mapInitializeEffect,
-        showCustomLayersEffect,
-        hideCustomLayersEffect,
+        addCustomLayersEffect,
+        removeCustomLayersEffect,
         setMapConfigPropertyEffect,
       },
     ]),

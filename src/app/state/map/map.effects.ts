@@ -1,5 +1,7 @@
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { AppState } from '@atticadt/state';
 import { MapService } from './map.service';
 import {
   mapInitialize,
@@ -8,10 +10,20 @@ import {
   setLocation,
   setLocationSuccess,
   setMapConfigProperty,
-  showCustomLayers,
+  addCustomLayers,
+  removeCustomLayers,
 } from './map.actions';
-import { concat, from, map, of, switchMap, tap } from 'rxjs';
-import { customLayers } from './map.selectors';
+import {
+  Observable,
+  concat,
+  from,
+  map,
+  of,
+  switchMap,
+  tap,
+  withLatestFrom,
+} from 'rxjs';
+import { customLayersNames } from './map.selectors';
 
 export const mapInitializeEffect = createEffect(
   (actions$ = inject(Actions), mapService = inject(MapService)) =>
@@ -32,49 +44,56 @@ export const setLocationEffect = createEffect(
       map((action) => action.name),
       switchMap((name) => mapService.getLocation(name)),
       switchMap((location) => {
-        return concat(
+        const actions: Observable<any>[] = [
           of(setLocationSuccess({ location })),
           from(mapService.flyTo(location)).pipe(
             map((bounds) => setBounds({ bounds }))
           ),
-          from(mapService.addGLBModels(location.glbModels ?? [])).pipe(
-            // tap((customLayers) =>
-            //   customLayers.forEach((customLayer) =>
-            //     mapService.locationCustomLayers.push(customLayer)
-            //   )
-            // ),
-            map((customLayers) => showCustomLayers({ customLayers }))
-          )
-        );
+        ];
+
+        if (location.glbModels && location.glbModels.length > 0) {
+          actions.push(
+            from(mapService.addGLBModels(location.glbModels)).pipe(
+              map((customLayers) => addCustomLayers({ customLayers }))
+            )
+          );
+        }
+
+        return concat(...actions);
       })
     ),
   { functional: true }
 );
 
-export const showCustomLayersEffect = createEffect(
+export const addCustomLayersEffect = createEffect(
   (actions$ = inject(Actions), mapService = inject(MapService)) =>
     actions$.pipe(
-      ofType(showCustomLayers),
+      ofType(addCustomLayers),
       map((action) => action.customLayers),
       tap((customLayers) => {
         for (const customLayer of customLayers) {
-          console.log('showCustomLayersEffect', customLayer);
+          console.log('addCustomLayersEffect', customLayer);
           mapService.map?.addLayer(customLayer);
-          // const { id } = customLayer;
-          // mapService.locationCustomLayers.push(id);
         }
       })
     ),
   { dispatch: false, functional: true }
 );
 
-export const hideCustomLayersEffect = createEffect(
-  (actions$ = inject(Actions), mapService = inject(MapService)) =>
+export const removeCustomLayersEffect = createEffect(
+  (
+    actions$ = inject(Actions),
+    store = inject(Store<AppState>),
+    mapService = inject(MapService)
+  ) =>
     actions$.pipe(
-      ofType(showCustomLayers),
-      tap(() => {
-        for (const customLayer of mapService.locationCustomLayers) {
-          mapService.map?.removeLayer(customLayer);
+      ofType(removeCustomLayers),
+      withLatestFrom(store.select(customLayersNames)),
+      tap(([action, customLayersNames]) => {
+        console.log('removeCustomLayersEffect', customLayersNames);
+        for (const customLayerName of customLayersNames ?? []) {
+          console.log('removeCustomLayersEffect', customLayerName);
+          mapService.map?.removeLayer(`glb-model-${customLayerName}`);
         }
       })
     ),

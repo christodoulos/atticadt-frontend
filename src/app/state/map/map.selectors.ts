@@ -4,7 +4,7 @@ import { AppState } from '@atticadt/state';
 
 export const selectMapState = (state: AppState) => state.map;
 
-export const isInitialized = createSelector(
+export const mapIsInitialized = createSelector(
   selectMapState,
   (state: MapState) => state.isInitialized
 );
@@ -92,4 +92,10 @@ export const terrain = createSelector(
 export const customLayers = createSelector(
   selectMapState,
   (state: MapState) => state.customLayers
+);
+
+export const customLayersNames = createSelector(
+  selectMapState,
+  (state: MapState) =>
+    state.location.glbModels?.map((customLayer) => customLayer.id)
 );
