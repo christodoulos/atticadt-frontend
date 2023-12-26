@@ -46,14 +46,14 @@ export class MapService {
       this.map.getCanvas().getContext('webgl'),
       {
         willReadFrequently: true,
-        // realSunlight: true,
+        realSunlight: true,
         sky: true,
         terrain: true,
+        defaultLights: true,
         enableSelectingObjects: true,
         enableSelectingFeatures: true,
         enableDraggingObjects: true,
-        enableRotatingObjects: true,
-        defaultLights: true,
+        enableDraggingFeatures: true,
       }
     );
   }
@@ -85,10 +85,6 @@ export class MapService {
       };
 
       this.tb.loadObj(options, async (model: any) => {
-        // const terrainElevation =
-        //   this.map?.queryTerrainElevation([where.lng, where.lat], {
-        //     exaggerated: false,
-        //   }) ?? 0;
         const terrainElevation = await this.getTerrainElevation(
           where.lng,
           where.lat
@@ -176,17 +172,27 @@ export class MapService {
 
   async getTerrainElevation(lng: number, lat: number): Promise<number> {
     return new Promise((resolve, reject) => {
-      // Ensure the map is idle before querying
       if (!this.map) {
         reject('Map is not initialized');
         return;
       }
 
-      this.map.once('moveend', () => {
-        const coordinates: mapboxgl.LngLatLike = [lng, lat];
-        const elevation = this.map!.queryTerrainElevation(coordinates) ?? 0;
+      const coordinates: mapboxgl.LngLatLike = [lng, lat];
+
+      if (!this.map.isMoving() && !this.map.isZooming()) {
+        const elevation =
+          this.map!.queryTerrainElevation(coordinates, { exaggerated: true }) ??
+          0;
         resolve(elevation);
-      });
+      } else {
+        this.map.once('moveend', () => {
+          const elevation =
+            this.map!.queryTerrainElevation(coordinates, {
+              exaggerated: true,
+            }) ?? 0;
+          resolve(elevation);
+        });
+      }
     });
   }
 }

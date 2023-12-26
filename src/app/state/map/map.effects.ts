@@ -74,6 +74,12 @@ export const addCustomLayersEffect = createEffect(
         for (const customLayer of customLayers) {
           console.log('addCustomLayersEffect', customLayer);
           mapService.map?.addLayer(customLayer);
+          // see https://t.ly/dd2ca
+          mapService.map?.setLayoutProperty(
+            customLayer.id,
+            'visibility',
+            'visible'
+          );
         }
       })
     ),
@@ -94,6 +100,7 @@ export const removeCustomLayersEffect = createEffect(
         for (const customLayerName of customLayersNames ?? []) {
           console.log('removeCustomLayersEffect', customLayerName);
           mapService.map?.removeLayer(`glb-model-${customLayerName}`);
+          mapService.tb.clear();
         }
       })
     ),
