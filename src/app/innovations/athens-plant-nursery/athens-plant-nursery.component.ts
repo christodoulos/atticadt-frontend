@@ -12,12 +12,11 @@ import { Store } from '@ngrx/store';
 export class AthensPlantNurseryComponent implements OnInit, OnDestroy {
   store = inject(Store<AppState>);
 
-  async ngOnInit() {
+  ngOnInit() {
     this.store.dispatch(setLocation({ name: 'athens-plant-nursery' }));
   }
 
   ngOnDestroy() {
-    console.log('AthensPlantNurseryComponent.ngOnDestroy()');
     this.store.dispatch(removeCustomLayers());
   }
 }

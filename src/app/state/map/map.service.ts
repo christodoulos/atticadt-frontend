@@ -28,6 +28,8 @@ export class MapService {
   http = inject(HttpClient);
   store = inject(Store<AppState>);
 
+  exaggeration = 1;
+
   initializeMap() {
     this.map = new Map({
       container: 'map',
@@ -46,14 +48,12 @@ export class MapService {
       this.map.getCanvas().getContext('webgl'),
       {
         willReadFrequently: true,
-        realSunlight: true,
         sky: true,
         terrain: true,
         defaultLights: true,
+        realSunlight: true,
         enableSelectingObjects: true,
-        enableSelectingFeatures: true,
         enableDraggingObjects: true,
-        enableDraggingFeatures: true,
       }
     );
   }
@@ -63,10 +63,10 @@ export class MapService {
     where: LngLat,
     elevation: number,
     modelFile: string,
-    scale: ThreeDType = { x: 1, y: 1, z: 1 },
-    rotation: ThreeDType = { x: 0, y: 0, z: 0 },
+    scale: ThreeDType,
+    rotation: ThreeDType,
     anchor: AnchorType = 'bottom-left',
-    modelCastShadow: boolean = false,
+    modelCastShadow: boolean,
     modelToolTip: string = ''
   ): Promise<CustomLayerInterface> {
     return new Promise((resolve, reject) => {
@@ -193,6 +193,44 @@ export class MapService {
           resolve(elevation);
         });
       }
+    });
+  }
+
+  incExaggeration() {
+    this.exaggeration += 0.05;
+    try {
+      this.map?.setTerrain({
+        source: 'mapbox-dem',
+        exaggeration: this.exaggeration,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  decExaggeration() {
+    this.exaggeration -= 0.05;
+    try {
+      this.map?.setTerrain({
+        source: 'mapbox-dem',
+        exaggeration: this.exaggeration,
+      });
+    } catch (e) {
+      console.log('exaggeration cannot be less than 0.1');
+    }
+  }
+
+  zeroExaggeration() {
+    this.map?.setTerrain({
+      source: 'mapbox-dem',
+      exaggeration: 0,
+    });
+  }
+
+  restoreExaggeration() {
+    this.map?.setTerrain({
+      source: 'mapbox-dem',
+      exaggeration: this.exaggeration,
     });
   }
 }
