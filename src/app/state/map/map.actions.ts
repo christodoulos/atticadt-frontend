@@ -49,21 +49,6 @@ export const setLat = createAction('[Map] Set Lat', props<{ lat: number }>());
 
 export const setLng = createAction('[Map] Set Lng', props<{ lng: number }>());
 
-// export const setFollow = createAction(
-//   '[Map] Set Follow',
-//   props<{ follow: boolean }>()
-// );
-
-// export const setWhere = createAction(
-//   '[Map] Set Where',
-//   props<{ where: MapWhere }>()
-// );
-
-// export const setAntialias = createAction(
-//   '[Map] Set Antialias',
-//   props<{ antialias: boolean }>()
-// );
-
 export const setSkyLayer = createAction(
   '[Map] Set Sky Layer',
   props<{ skyLayer: boolean }>()
@@ -117,3 +102,7 @@ export const addCustomLayers = createAction(
 );
 
 export const removeCustomLayers = createAction('[Map] Remove Custom Layers');
+
+// Map Toolbar Actions
+
+export const saveMap = createAction('[Map] Save Map');

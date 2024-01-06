@@ -1,7 +1,6 @@
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { MapService } from './map.service';
 import {
   Observable,
   concat,
@@ -12,6 +11,7 @@ import {
   tap,
   withLatestFrom,
 } from 'rxjs';
+import { MapService } from '@atticadt/services';
 import * as MapAction from './map.actions';
 
 export const mapInitializeEffect = createEffect(
@@ -111,5 +111,15 @@ export const setMapConfigPropertyEffect = createEffect(
         );
       })
     ),
+  { dispatch: false, functional: true }
+);
+
+export const saveMapEffect = createEffect(
+  (actions$ = inject(Actions), service = inject(MapService)) => {
+    return actions$.pipe(
+      ofType(MapAction.saveMap),
+      tap(() => service.downloadMap())
+    );
+  },
   { dispatch: false, functional: true }
 );

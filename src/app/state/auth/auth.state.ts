@@ -1,29 +1,15 @@
 import { inject } from '@angular/core';
 import { SocialUser } from '@abacritt/angularx-social-login';
-import {
-  createAction,
-  props,
-  createReducer,
-  on,
-  createFeature,
-} from '@ngrx/store';
+import { createReducer, on, createFeature } from '@ngrx/store';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map } from 'rxjs';
+import * as AuthAction from './auth.actions';
 
 export interface AuthState {
   loggedIn: boolean;
   authIsLoading: boolean;
   user: SocialUser | null;
 }
-
-export const login = createAction(
-  '[Auth] Login',
-  props<{ user: SocialUser }>()
-);
-
-export const loginSuccess = createAction('[Auth] Login Success');
-
-export const logout = createAction('[Auth] Logout');
 
 export const authInitialState: AuthState = {
   loggedIn: false,
@@ -34,19 +20,19 @@ export const authInitialState: AuthState = {
 export const authReducer = createReducer(
   authInitialState,
 
-  on(login, (state, { user }) => ({
+  on(AuthAction.login, (state, { user }) => ({
     ...state,
     loggedIn: true,
     isLoading: true,
     user,
   })),
 
-  on(loginSuccess, (state) => ({
+  on(AuthAction.loginSuccess, (state) => ({
     ...state,
     isLoading: false,
   })),
 
-  on(logout, (state) => ({
+  on(AuthAction.logout, (state) => ({
     ...state,
     loggedIn: false,
     isLoading: false,
@@ -60,14 +46,3 @@ export const authFeature = createFeature({
 });
 
 export const { selectLoggedIn, selectAuthIsLoading, selectUser } = authFeature;
-
-// Auth Effects
-
-export const loginEffect = createEffect(
-  (actions$ = inject(Actions)) =>
-    actions$.pipe(
-      ofType(login),
-      map(() => loginSuccess())
-    ),
-  { functional: true }
-);

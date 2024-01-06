@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { Store } from '@ngrx/store';
 import { HttpClient } from '@angular/common/http';
-import { login, logout } from '@atticadt/state';
+import { AuthActions } from '@atticadt/state';
 
 @Injectable({
   providedIn: 'root',
@@ -24,13 +24,13 @@ export class AuthService {
           .subscribe((res) => {
             console.log(res);
           });
-        this.store.dispatch(login({ user }));
+        this.store.dispatch(AuthActions.login({ user }));
       }
     });
   }
 
   signOut() {
     this.socialAuthService.signOut();
-    this.store.dispatch(logout());
+    this.store.dispatch(AuthActions.logout());
   }
 }

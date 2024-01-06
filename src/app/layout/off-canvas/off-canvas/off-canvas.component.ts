@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MapDashboardComponent } from '../map-dashboard/map-dashboard.component';
-import { MapService } from 'src/app/state/map/map.service';
+import { MapService } from '@atticadt/services';
 
 @Component({
   selector: 'app-off-canvas',

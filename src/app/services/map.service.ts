@@ -3,8 +3,9 @@ import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { CustomLayerInterface, LngLat, Map } from 'mapbox-gl';
 import { Threebox } from 'threebox-plugin';
+import saveAs from 'file-saver';
 
-import { MapLocation, AnchorType, ThreeDType, GLBModel } from '@atticadt/state';
+import { MapInterfaces } from '@atticadt/state';
 
 declare global {
   interface Window {
@@ -57,9 +58,9 @@ export class MapService {
     where: LngLat,
     elevation: number,
     modelFile: string,
-    scale: ThreeDType,
-    rotation: ThreeDType,
-    anchor: AnchorType = 'bottom-left',
+    scale: MapInterfaces.ThreeDType,
+    rotation: MapInterfaces.ThreeDType,
+    anchor: MapInterfaces.AnchorType = 'bottom-left',
     modelCastShadow: boolean,
     modelToolTip: string = ''
   ): Promise<CustomLayerInterface> {
@@ -110,7 +111,7 @@ export class MapService {
     });
   }
 
-  async addGLBModels(models: GLBModel[]) {
+  async addGLBModels(models: MapInterfaces.GLBModel[]) {
     console.log('addGLBModels', models);
     const promises: CustomLayerInterface[] = [];
     for (const model of models) {
@@ -132,7 +133,7 @@ export class MapService {
   }
 
   getLocation(name: string) {
-    return this.http.get<MapLocation>(
+    return this.http.get<MapInterfaces.MapLocation>(
       `http://localhost:3456/api/atticadt/location/${name}`
     );
   }
@@ -148,7 +149,7 @@ export class MapService {
     }
   }
 
-  async flyTo(location: MapLocation): Promise<number[][]> {
+  async flyTo(location: MapInterfaces.MapLocation): Promise<number[][]> {
     return new Promise((resolve, reject) => {
       if (!this.map) {
         reject('Map is not initialized');
@@ -226,5 +227,17 @@ export class MapService {
       source: 'mapbox-dem',
       exaggeration: this.exaggeration,
     });
+  }
+
+  downloadMap() {
+    // Τhanks to https://tinyurl.com/22vht9zc accepted answer
+    const img = new Image();
+    const mapCanvas = document.querySelector(
+      '.mapboxgl-canvas'
+    ) as HTMLCanvasElement;
+    if (mapCanvas) {
+      img.src = mapCanvas.toDataURL();
+      saveAs(img.src, 'map.png');
+    }
   }
 }

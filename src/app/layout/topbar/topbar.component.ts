@@ -18,7 +18,7 @@ import { Store } from '@ngrx/store';
 import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 import { AuthService } from '@atticadt/services';
 import { RibbonDangerTwoComponent } from 'src/app/ui/ribbon-danger-two/ribbon-danger-two.component';
-import { saveMap } from '@atticadt/state';
+import { MapAction } from '@atticadt/state';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -76,6 +76,6 @@ export class TopbarComponent {
   }
 
   saveMap() {
-    this.store.dispatch(saveMap());
+    this.store.dispatch(MapAction.saveMap());
   }
 }

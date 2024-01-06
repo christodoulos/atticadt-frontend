@@ -12,8 +12,7 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import {
   authFeature,
   mapFeature,
-  loginEffect,
-  saveMapEffect,
+  AuthEffects,
   MapEffetcs,
 } from '@atticadt/state';
 
@@ -45,8 +44,7 @@ export const appConfig: ApplicationConfig = {
     provideState(mapFeature),
     provideEffects([
       {
-        loginEffect,
-        saveMapEffect,
+        ...AuthEffects,
         ...MapEffetcs,
       },
     ]),
