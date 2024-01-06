@@ -35,6 +35,12 @@ export interface MapLocation {
   glbModels?: GLBModel[];
 }
 
+export interface MapboxLayerVisibility {
+  'poi-label': boolean;
+  'road-label': boolean;
+  'transit-label': boolean;
+}
+
 export interface MapState {
   isInitialized: boolean;
   isLoading: boolean;
@@ -49,11 +55,8 @@ export interface MapState {
   terrain: boolean;
   skyLayer: boolean;
   location: MapLocation;
-  showPlaces: boolean;
-  'poi-label': boolean;
-  'road-label': boolean;
-  'transit-label': boolean;
-  customLayers?: CustomLayerInterface[];
+  mapboxLayerVisibility: MapboxLayerVisibility;
+  customLayers: CustomLayerInterface[] | null;
 }
 
 export const MapInitialState: MapState = {
@@ -79,8 +82,10 @@ export const MapInitialState: MapState = {
     bearing: 0,
     pitch: 0,
   },
-  showPlaces: false,
-  'poi-label': true,
-  'road-label': false,
-  'transit-label': true,
+  mapboxLayerVisibility: {
+    'poi-label': false,
+    'road-label': false,
+    'transit-label': false,
+  },
+  customLayers: null,
 };

@@ -5,9 +5,8 @@ import {
   props,
   createReducer,
   on,
-  createSelector,
+  createFeature,
 } from '@ngrx/store';
-import { AppState } from '@atticadt/state';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map } from 'rxjs';
 
@@ -55,39 +54,12 @@ export const authReducer = createReducer(
   }))
 );
 
-// Auth Selectors
+export const authFeature = createFeature({
+  name: 'auth',
+  reducer: authReducer,
+});
 
-export const selectAuthState = (state: AppState) => state.auth;
-
-export const loggedIn = createSelector(
-  selectAuthState,
-  (state: AuthState) => state.loggedIn
-);
-
-export const userIsLoading = createSelector(
-  selectAuthState,
-  (state: AuthState) => state.isLoading
-);
-
-export const user = createSelector(
-  selectAuthState,
-  (state: AuthState) => state.user
-);
-
-export const name = createSelector(
-  selectAuthState,
-  (state: AuthState) => state.user?.name
-);
-
-export const email = createSelector(
-  selectAuthState,
-  (state: AuthState) => state.user?.email
-);
-
-export const photoUrl = createSelector(
-  selectAuthState,
-  (state: AuthState) => state.user?.photoUrl
-);
+export const { selectLoggedIn, selectIsLoading, selectUser } = authFeature;
 
 // Auth Effects
 

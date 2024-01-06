@@ -1,5 +1,5 @@
 import { createSelector } from '@ngrx/store';
-import { AuthState } from './auth';
+import { AuthState } from './auth.state';
 import { MapState } from './map/map.interfaces';
 
 export interface AppState {
@@ -13,6 +13,6 @@ export const dtIsLoading = createSelector(
   (auth, map) => auth.isLoading || map.isLoading
 );
 
-export * from './auth';
+export * from './auth.state';
 export * from './ui-action';
 export * from './map';

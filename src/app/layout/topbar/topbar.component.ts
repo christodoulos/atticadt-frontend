@@ -11,10 +11,9 @@ import { UserDropdownComponent } from '../user-dropdown/user-dropdown.component'
 import {
   AppState,
   dtIsLoading,
-  email,
-  loggedIn,
-  name,
-  photoUrl,
+  selectUser,
+  selectIsLoading,
+  selectLoggedIn,
 } from '@atticadt/state';
 import { Store } from '@ngrx/store';
 import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
@@ -40,12 +39,10 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 })
 export class TopbarComponent {
   authService = inject(AuthService);
-  store = inject(Store<AppState>);
-  loggedIn$ = this.store.select(loggedIn);
-  photoUrl$ = this.store.select(photoUrl);
-  name$ = this.store.select(name);
-  email$ = this.store.select(email);
-  isLoading$ = this.store.select(dtIsLoading);
+  store = inject(Store);
+  loggedIn$ = this.store.select(selectLoggedIn);
+  user$ = this.store.select(selectUser);
+  isLoading$ = this.store.select(selectIsLoading);
   renderer = inject(Renderer2);
 
   signOut() {

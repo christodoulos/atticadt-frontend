@@ -6,10 +6,12 @@ import {
   SocialAuthServiceConfig,
 } from '@abacritt/angularx-social-login';
 
-import { provideStore } from '@ngrx/store';
+import { provideStore, provideState } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import {
+  authFeature,
+  mapFeature,
   authReducer,
   loginEffect,
   mapReducer,
@@ -44,11 +46,9 @@ export const appConfig: ApplicationConfig = {
       } as SocialAuthServiceConfig,
     },
     provideHttpClient(withFetch()),
-    provideStore({
-      auth: authReducer,
-      map: mapReducer,
-    }),
-    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
+    provideStore(),
+    provideState(authFeature),
+    provideState(mapFeature),
     provideEffects([
       {
         loginEffect,
@@ -60,5 +60,6 @@ export const appConfig: ApplicationConfig = {
         setMapConfigPropertyEffect,
       },
     ]),
+    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   ],
 };

@@ -45,9 +45,9 @@
       </li>
       @if(loggedIn$ | async) {
       <app-user-dropdown
-        [email]="email$ | async"
-        [name]="name$ | async"
-        [photoUrl]="photoUrl$ | async"
+        [email]="(user$ | async)?.email"
+        [name]="(user$ | async)?.name"
+        [photoUrl]="(user$ | async)?.photoUrl"
         (signOut)="signOut()"
       ></app-user-dropdown>
       } @else {
