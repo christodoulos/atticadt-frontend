@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { AppState, setLocation } from '@atticadt/state';
+import { MapAction } from '@atticadt/state';
 
 @Component({
   selector: 'app-farmair',
@@ -11,9 +11,9 @@ import { AppState, setLocation } from '@atticadt/state';
   styleUrl: './farmair.component.css',
 })
 export class FarmairComponent implements OnInit {
-  store = inject(Store<AppState>);
+  store = inject(Store);
 
   ngOnInit(): void {
-    this.store.dispatch(setLocation({ name: 'farmair' }));
+    this.store.dispatch(MapAction.setLocation({ name: 'farmair' }));
   }
 }

@@ -4,13 +4,7 @@ import { Store } from '@ngrx/store';
 import { CustomLayerInterface, LngLat, Map } from 'mapbox-gl';
 import { Threebox } from 'threebox-plugin';
 
-import {
-  AppState,
-  MapLocation,
-  AnchorType,
-  ThreeDType,
-  GLBModel,
-} from '@atticadt/state';
+import { MapLocation, AnchorType, ThreeDType, GLBModel } from '@atticadt/state';
 
 declare global {
   interface Window {
@@ -26,7 +20,7 @@ export class MapService {
   tb = window.tb;
 
   http = inject(HttpClient);
-  store = inject(Store<AppState>);
+  store = inject(Store);
 
   exaggeration = 1;
 

@@ -131,3 +131,6 @@ export const mapFeature = createFeature({
     ),
   }),
 });
+
+export const { selectMapIsLoading, selectLocation, selectCustomLayerNames } =
+  mapFeature;

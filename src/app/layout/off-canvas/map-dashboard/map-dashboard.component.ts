@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState, setMapConfigProperty } from '@atticadt/state';
+import { MapAction } from '@atticadt/state';
 import { OffCanvasCheckboxComponent } from '@atticadt/ui';
 
 @Component({
@@ -11,10 +11,10 @@ import { OffCanvasCheckboxComponent } from '@atticadt/ui';
   styleUrl: './map-dashboard.component.css',
 })
 export class MapDashboardComponent {
-  store = inject(Store<AppState>);
+  store = inject(Store);
   onToggle(property: { setting: string; status: boolean }) {
     this.store.dispatch(
-      setMapConfigProperty({
+      MapAction.setMapConfigProperty({
         property: property.setting,
         value: property.status,
       })

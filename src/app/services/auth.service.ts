@@ -2,14 +2,14 @@ import { Injectable, inject } from '@angular/core';
 import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { Store } from '@ngrx/store';
 import { HttpClient } from '@angular/common/http';
-import { AppState, login, logout } from '@atticadt/state';
+import { login, logout } from '@atticadt/state';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   socialAuthService = inject(SocialAuthService);
-  store = inject(Store<AppState>);
+  store = inject(Store);
   http = inject(HttpClient);
 
   constructor() {

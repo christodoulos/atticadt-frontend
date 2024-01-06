@@ -12,7 +12,7 @@ import { map } from 'rxjs';
 
 export interface AuthState {
   loggedIn: boolean;
-  isLoading: boolean;
+  authIsLoading: boolean;
   user: SocialUser | null;
 }
 
@@ -27,7 +27,7 @@ export const logout = createAction('[Auth] Logout');
 
 export const authInitialState: AuthState = {
   loggedIn: false,
-  isLoading: false,
+  authIsLoading: false,
   user: null,
 };
 
@@ -59,7 +59,7 @@ export const authFeature = createFeature({
   reducer: authReducer,
 });
 
-export const { selectLoggedIn, selectIsLoading, selectUser } = authFeature;
+export const { selectLoggedIn, selectAuthIsLoading, selectUser } = authFeature;
 
 // Auth Effects
 

@@ -12,15 +12,9 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import {
   authFeature,
   mapFeature,
-  authReducer,
   loginEffect,
-  mapReducer,
-  setLocationEffect,
   saveMapEffect,
-  mapInitializeEffect,
-  addCustomLayersEffect,
-  removeCustomLayersEffect,
-  setMapConfigPropertyEffect,
+  MapEffetcs,
 } from '@atticadt/state';
 
 import { routes } from './app.routes';
@@ -52,12 +46,8 @@ export const appConfig: ApplicationConfig = {
     provideEffects([
       {
         loginEffect,
-        setLocationEffect,
         saveMapEffect,
-        mapInitializeEffect,
-        addCustomLayersEffect,
-        removeCustomLayersEffect,
-        setMapConfigPropertyEffect,
+        ...MapEffetcs,
       },
     ]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),

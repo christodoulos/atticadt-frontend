@@ -43,7 +43,7 @@ export interface MapboxLayerVisibility {
 
 export interface MapState {
   isInitialized: boolean;
-  isLoading: boolean;
+  mapIsLoading: boolean;
   style: string;
   bounds: number[][];
   bearing: number;
@@ -61,7 +61,7 @@ export interface MapState {
 
 export const MapInitialState: MapState = {
   isInitialized: false,
-  isLoading: false,
+  mapIsLoading: false,
   style: 'mapbox://styles/christodoulos/clqjoryfl00o301qvhaat7oj4',
   bounds: [
     [-180, -90],

@@ -9,10 +9,9 @@ import { LogoComponent } from '../logo/logo.component';
 import { UserDropdownComponent } from '../user-dropdown/user-dropdown.component';
 
 import {
-  AppState,
-  dtIsLoading,
   selectUser,
-  selectIsLoading,
+  selectAuthIsLoading,
+  selectMapIsLoading,
   selectLoggedIn,
 } from '@atticadt/state';
 import { Store } from '@ngrx/store';
@@ -42,7 +41,9 @@ export class TopbarComponent {
   store = inject(Store);
   loggedIn$ = this.store.select(selectLoggedIn);
   user$ = this.store.select(selectUser);
-  isLoading$ = this.store.select(selectIsLoading);
+  isLoading$ =
+    this.store.select(selectMapIsLoading) ||
+    this.store.select(selectAuthIsLoading);
   renderer = inject(Renderer2);
 
   signOut() {
