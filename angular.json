@@ -24,6 +24,7 @@
               "src/assets/vendor/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css",
               "src/assets/css/icons.min.css",
               "node_modules/mapbox-gl/dist/mapbox-gl.css",
+              "node_modules/threebox-plugin/dist/threebox.css",
               "src/styles.css"
             ],
             "scripts": [
