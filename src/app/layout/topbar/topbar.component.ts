@@ -17,7 +17,6 @@ import {
 import { Store } from '@ngrx/store';
 import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 import { AuthService } from '@atticadt/services';
-import { RibbonDangerTwoComponent } from 'src/app/ui/ribbon-danger-two/ribbon-danger-two.component';
 import { MapAction } from '@atticadt/state';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -30,7 +29,6 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
     LogoComponent,
     UserDropdownComponent,
     GoogleSigninButtonModule,
-    RibbonDangerTwoComponent,
   ],
   templateUrl: './topbar.component.html',
   styleUrl: './topbar.component.css',
