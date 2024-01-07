@@ -29,7 +29,7 @@
     "mapbox-gl": "^3.0.1",
     "rxjs": "~7.8.0",
     "simplebar-angular": "^3.2.4",
-    "threebox-plugin": "^2.2.7",
+    "threebox-plugin": "https://github.com/christodoulos/threebox",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"
   },
