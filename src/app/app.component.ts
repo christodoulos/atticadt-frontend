@@ -1,13 +1,27 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, effect, inject } from '@angular/core';
+import {
+  TopbarComponent,
+  LeftSidebarComponent,
+  ContentComponent,
+} from '@atticadt/layout';
+import { MapService } from './services';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [TopbarComponent, LeftSidebarComponent, ContentComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'atticadt-frontend';
+  mapService = inject(MapService);
+  mapDivInitialized = this.mapService.mapDivInitialized;
+
+  constructor() {
+    effect(() => {
+      if (this.mapDivInitialized()) {
+        this.mapService.initializeMap();
+      }
+    });
+  }
 }

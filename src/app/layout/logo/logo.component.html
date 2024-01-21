@@ -1,0 +1,16 @@
+<a routerLink="" class="logo logo-light p-0">
+  <span class="logo-lg">
+    <img src="/assets/images/uwmh-white-logo.png" alt="logo" />
+  </span>
+  <span class="logo-sm">
+    @if (where) {
+    <img
+      [src]="
+        where === 'sidebar'
+          ? '/assets/images/uwmh-white-logo-sm.png'
+          : '/assets/images/uwmh-blue-logo-sm.png'
+      "
+    />
+    }
+  </span>
+</a>

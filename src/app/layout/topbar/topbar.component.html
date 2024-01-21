@@ -1,0 +1,100 @@
+<div class="navbar-custom">
+  <div class="topbar container-fluid">
+    <div class="d-flex align-items-center gap-1">
+      <!-- Topbar Brand Logo -->
+      <div class="logo-topbar p-0">
+        <app-logo [where]="'topbar'" />
+      </div>
+
+      <!-- Sidebar Menu Toggle Button -->
+      <button
+        (click)="sidebarToggle()"
+        class="button-toggle-menu d-xl-none d-inline"
+      >
+        <i class="mdi mdi-menu"></i>
+      </button>
+
+      <span class="fw-bold fs-4 text-truncate">Attica Digital Twins</span>
+      <!-- @if (isLoading$ | async) {
+      <div class="spinner-grow text-primary" role="status"></div>
+      } -->
+    </div>
+
+    <ul class="topbar-menu d-flex align-items-center gap-3">
+      <li>
+        <a class="nav-link" (click)="saveMap()">
+          <i
+            class="ri-camera-line font-22"
+            ngbTooltip="Save Map"
+            container="body"
+          ></i>
+        </a>
+      </li>
+      <li>
+        <a class="nav-link">
+          <i
+            class="ri-settings-3-line font-22"
+            ngbTooltip="Settings"
+            container="body"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvas"
+          ></i>
+        </a>
+      </li>
+      @if(user()) {
+      <app-user-dropdown
+        [email]="user()?.email"
+        [name]="user()?.name"
+        [photoUrl]="user()?.photoUrl"
+        (signOut)="signOut()"
+      ></app-user-dropdown>
+      } @else {
+      <li ngbTooltip="Sign In with Google" container="body">
+        <a class="nav-link">
+          <asl-google-signin-button type="icon" shape="circle">
+          </asl-google-signin-button
+        ></a>
+      </li>
+      }
+    </ul>
+  </div>
+</div>
+
+<div class="offcanvas offcanvas-top" id="offcanvas">
+  <div class="offcanvas-header h-auto">
+    <h4 class="offcanvas-title" id="offcanvas-basic-title">Profile update</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      data-bs-dismiss="offcanvas"
+    ></button>
+  </div>
+  <div class="offcanvas-body">
+    <router-outlet></router-outlet>
+    <p></p>
+    <form>
+      <div class="mb-3">
+        <label for="dateOfBirth">Date of birth</label>
+        <div class="input-group">
+          <!-- <input
+						id="dateOfBirth"
+						class="form-control"
+						placeholder="yyyy-mm-dd"
+						name="dp"
+						ngbDatepicker
+						#dp="ngbDatepicker"
+					/> -->
+          <!-- <button
+            class="btn btn-outline-secondary bi bi-calendar3"
+            (click)="dp.toggle()"
+            type="button"
+          ></button> -->
+        </div>
+      </div>
+    </form>
+    <div class="text-end">
+      <button type="button" class="btn btn-outline-dark">Save</button>
+    </div>
+  </div>
+</div>
