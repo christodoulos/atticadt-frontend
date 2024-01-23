@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MapService } from '@atticadt/services';
 
 @Component({
@@ -7,10 +7,10 @@ import { MapService } from '@atticadt/services';
   templateUrl: './map.component.html',
   styleUrl: './map.component.css',
 })
-export class MapComponent implements AfterViewInit {
+export class MapComponent implements OnInit {
   mapService = inject(MapService);
 
-  ngAfterViewInit() {
-    this.mapService.mapDivInitialized.set(true);
+  ngOnInit() {
+    this.mapService.initializeMap();
   }
 }

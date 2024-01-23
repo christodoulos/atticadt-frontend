@@ -51,7 +51,7 @@ export const MENU: MenuItem[] = [
   {
     key: 'meteorological_heatmaps',
     label: 'Meteorological Heatmaps',
-    link: '/regional/meteorological-heatmaps',
+    link: '/regional/heatmaps',
     icon: 'uil-layer-group',
   },
   // Analysis Services

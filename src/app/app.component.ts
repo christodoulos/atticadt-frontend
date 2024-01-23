@@ -1,10 +1,9 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   TopbarComponent,
   LeftSidebarComponent,
   ContentComponent,
 } from '@atticadt/layout';
-import { MapService } from './services';
 
 @Component({
   selector: 'app-root',
@@ -13,15 +12,4 @@ import { MapService } from './services';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent {
-  mapService = inject(MapService);
-  mapDivInitialized = this.mapService.mapDivInitialized;
-
-  constructor() {
-    effect(() => {
-      if (this.mapDivInitialized()) {
-        this.mapService.initializeMap();
-      }
-    });
-  }
-}
+export class AppComponent {}

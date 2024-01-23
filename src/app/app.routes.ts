@@ -10,5 +10,10 @@ export const routes: Routes = [
     component: AthensPlantNurseryComponent,
   },
   { path: 'innovations/farmair', component: FarmairComponent },
+  {
+    path: 'regional/heatmaps',
+    loadChildren: () =>
+      import('./regional/heatmaps/heatmaps.routes').then((m) => m.routes),
+  },
   { path: '', component: InventoryComponent },
 ];

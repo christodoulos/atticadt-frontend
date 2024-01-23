@@ -51,7 +51,6 @@ export interface MapLocation {
 @Injectable({ providedIn: 'root' })
 export class MapService {
   map: Map | undefined;
-  mapDivInitialized = signal(false);
 
   tb = window.tb;
 
@@ -171,18 +170,6 @@ export class MapService {
     return Promise.all(promises);
   }
 
-  getBounds() {
-    if (!this.map) return;
-    else return this.map.getBounds().toArray();
-  }
-
-  // getLayers() {
-  //   const layers = this.map?.getStyle().layers;
-  //   for (const layer of layers ?? []) {
-  //     console.log(layer);
-  //   }
-  // }
-
   flyTo(location: MapLocation): Promise<MapLocation> {
     return new Promise((resolve, reject) => {
       if (!this.map) {
@@ -252,30 +239,6 @@ export class MapService {
         });
       }
     });
-  }
-
-  incExaggeration() {
-    this.exaggeration += 0.05;
-    try {
-      this.map?.setTerrain({
-        source: 'mapbox-dem',
-        exaggeration: this.exaggeration,
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
-  decExaggeration() {
-    this.exaggeration -= 0.05;
-    try {
-      this.map?.setTerrain({
-        source: 'mapbox-dem',
-        exaggeration: this.exaggeration,
-      });
-    } catch (e) {
-      console.log('exaggeration cannot be less than 0.1');
-    }
   }
 
   zeroExaggeration() {

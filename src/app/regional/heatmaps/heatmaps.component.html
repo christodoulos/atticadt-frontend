@@ -1,0 +1,8 @@
+<form [formGroup]="form">
+  <ui-select
+    [label]="'Select a metric'"
+    [selections]="heatmapMetrics"
+    [tooltip]="'Select a metric to display a heatmap.'"
+    formControlName="metric"
+  ></ui-select>
+</form>
