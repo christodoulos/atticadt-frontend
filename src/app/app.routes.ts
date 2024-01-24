@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 import { FarmairComponent } from './innovations/farmair/farmair.component';
 import { InventoryComponent } from './innovations/inventory/inventory.component';
 import { AthensPlantNurseryComponent } from './innovations/athens-plant-nursery/athens-plant-nursery.component';
+import { HeatmapsComponent } from './regional/heatmaps/heatmaps.component';
 
 export const routes: Routes = [
   {
@@ -10,10 +11,11 @@ export const routes: Routes = [
     component: AthensPlantNurseryComponent,
   },
   { path: 'innovations/farmair', component: FarmairComponent },
-  {
-    path: 'regional/heatmaps',
-    loadChildren: () =>
-      import('./regional/heatmaps/heatmaps.routes').then((m) => m.routes),
-  },
+  // {
+  //   path: 'regional/heatmaps',
+  //   loadChildren: () =>
+  //     import('./regional/heatmaps/heatmaps.routes').then((m) => m.routes),
+  // },
+  { path: 'regional/heatmaps', component: HeatmapsComponent },
   { path: '', component: InventoryComponent },
 ];

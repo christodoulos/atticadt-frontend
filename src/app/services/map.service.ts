@@ -1,6 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
-import { CustomLayerInterface, LngLat, Map } from 'mapbox-gl';
+import {
+  CustomLayerInterface,
+  LngLat,
+  Map,
+  NavigationControl,
+  ScaleControl,
+} from 'mapbox-gl';
 import { Threebox } from 'threebox-plugin';
 import saveAs from 'file-saver';
 import { environment } from 'src/environments/environment';
@@ -70,6 +76,11 @@ export class MapService {
       accessToken:
         'pk.eyJ1IjoiY2hyaXN0b2RvdWxvcyIsImEiOiJja3luYTd3eW0ydGFiMm9xcHRmMGJyOHVrIn0.c1mSurunkjU4Wyf2hxcy0g',
     });
+
+    // Add zoom and rotation controls to the map.
+    this.map.addControl(new NavigationControl());
+    this.map.addControl(new ScaleControl());
+    // this.map.scrollZoom.disable();
 
     console.log('MapService.initializeMap Mapbox initialized');
 

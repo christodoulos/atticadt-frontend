@@ -6,11 +6,24 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MapService } from '@atticadt/services';
+import {
+  HeatmapsService,
+  MapService,
+  MyFeatureCollection,
+} from '@atticadt/services';
 import { SelectComponent } from '@atticadt/ui';
 
+import {
+  polygon,
+  Point,
+  Polygon,
+  MultiPolygon,
+  Feature,
+  booleanPointInPolygon,
+} from '@turf/turf';
+
 import * as interpolateHeatmapLayer from 'interpolateheatmaplayer';
-import { Subscription } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 
 @Component({
   selector: 'app-heatmaps',
@@ -21,6 +34,16 @@ import { Subscription } from 'rxjs';
 })
 export class HeatmapsComponent implements OnInit, OnDestroy {
   mapService = inject(MapService);
+  heatmapsService = inject(HeatmapsService);
+
+  map = this.mapService.map;
+
+  timeOfObservation = '';
+  min: number | null = null;
+  max: number | null = null;
+  unit = '';
+  roi: number[][] | undefined;
+  tpoly: Feature | null = null;
 
   heatmapMetrics = [
     { key: 'temperature', value: 'Temperature' },
@@ -33,6 +56,9 @@ export class HeatmapsComponent implements OnInit, OnDestroy {
     { key: 'precipitation', value: 'Precipitation' },
     { key: 'highestDailyGust', value: 'Highest Daily Gust' },
   ];
+
+  heatmapSelection = 'temperature';
+
   form = new FormGroup({
     metric: new FormControl('', Validators.required),
   });
@@ -40,14 +66,104 @@ export class HeatmapsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.mapService.setLocation('attica');
+
+    this.mapService.zeroExaggeration();
+
     this.subscription = this.form.controls.metric.valueChanges.subscribe(
       (value) => {
-        console.log(value);
+        this.heatmapSelection = value ?? '';
+        this.heatmapsService
+          .getHeatmap(this.heatmapSelection)
+          .pipe(take(1))
+          .subscribe((data: MyFeatureCollection) => {
+            const properties = data.properties;
+            this.timeOfObservation = properties['TimeOfObservation'];
+            this.unit = properties['FeatureUnit'];
+            this.createHeatmap(data, this.heatmapSelection ?? '');
+            this.createLabels(data, this.heatmapSelection ?? '');
+          });
       }
     );
+
+    this.heatmapsService
+      .getAtticaNUTS()
+      .pipe(take(1))
+      .subscribe((data) => {
+        this.roi = (data.geometry as MultiPolygon).coordinates[0][0];
+        this.tpoly = polygon((data.geometry as MultiPolygon).coordinates[0]);
+      });
   }
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
+    this.mapService.restoreExaggeration();
+  }
+
+  createHeatmap(data: MyFeatureCollection, metric: string): void {
+    const points = [];
+
+    for (let index = 0; index < data.features.length; index++) {
+      const element = data.features[index];
+      const point = {
+        lon: (element.geometry as Point).coordinates[0],
+        lat: (element.geometry as Point).coordinates[1],
+        val: element.properties![metric],
+      };
+
+      if (
+        booleanPointInPolygon(
+          [point.lon, point.lat],
+          this.tpoly as unknown as Polygon
+        )
+      ) {
+        // if (point.val !== 30.8) points.push(point); // A station seems to be stuck at 30.8
+        points.push(point);
+      }
+    }
+
+    this.min = Math.min(...points.map((p) => p.val));
+    this.max = Math.max(...points.map((p) => p.val));
+
+    const layer = interpolateHeatmapLayer.create({
+      layerId: 'heatmap',
+      opacity: 0.9,
+      points,
+      roi: this.roi,
+      renderingMode: '3d',
+    });
+
+    this.map?.addLayer(layer);
+
+    // if (this.legend) {
+    //   this.map?.removeControl(this.legend);
+    // }
+    // this.legend = new HeatmapsLegendControl(
+    //   metric,
+    //   this.min,
+    //   this.max,
+    //   this.unit,
+    //   this.timeOfObservation
+    // );
+    // this.map?.addControl(this.legend, 'top-left');
+  }
+
+  createLabels(data: any, metric: string) {
+    this.map?.addSource('data', {
+      type: 'geojson',
+      data: data,
+    });
+    this.map?.addLayer({
+      id: 'labels',
+      type: 'symbol',
+      source: 'data',
+      layout: {
+        'text-field': ['get', metric],
+        'text-size': 11,
+        'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
+      },
+      paint: {
+        'text-color': '#FFFFFF',
+      },
+    });
   }
 }
