@@ -67,21 +67,24 @@ export class HeatmapsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.mapService.setLocation('attica');
 
-    this.mapService.zeroExaggeration();
+    // this.mapService.zeroExaggeration();
 
     this.subscription = this.form.controls.metric.valueChanges.subscribe(
       (value) => {
-        this.heatmapSelection = value ?? '';
-        this.heatmapsService
-          .getHeatmap(this.heatmapSelection)
-          .pipe(take(1))
-          .subscribe((data: MyFeatureCollection) => {
-            const properties = data.properties;
-            this.timeOfObservation = properties['TimeOfObservation'];
-            this.unit = properties['FeatureUnit'];
-            this.createHeatmap(data, this.heatmapSelection ?? '');
-            this.createLabels(data, this.heatmapSelection ?? '');
-          });
+        if (value) {
+          this.heatmapSelection = value;
+          this.heatmapsService
+            .getHeatmap(this.heatmapSelection)
+            .pipe(take(1))
+            .subscribe((data: MyFeatureCollection) => {
+              this.mapboxHeatmap(data);
+              // const properties = data.properties;
+              // this.timeOfObservation = properties['TimeOfObservation'];
+              // this.unit = properties['FeatureUnit'];
+              // this.createHeatmap(data, this.heatmapSelection);
+              this.createLabels(data, this.heatmapSelection);
+            });
+        }
       }
     );
 
@@ -97,6 +100,68 @@ export class HeatmapsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
     this.mapService.restoreExaggeration();
+  }
+
+  mapboxHeatmap(data: MyFeatureCollection, metric: string = 'temperature') {
+    this.map?.addSource('heatmap-source', {
+      type: 'geojson',
+      data: data, // Your FeatureCollection
+    });
+
+    console.log(data);
+
+    this.min = Math.min(
+      ...data.features.map((p) => (p.properties ? p.properties[metric] : 9999))
+    );
+    this.max = Math.max(
+      ...data.features.map((p) => (p.properties ? p.properties[metric] : -9999))
+    );
+
+    console.log(this.min, this.max);
+
+    this.map?.addLayer({
+      id: 'heatmap-layer',
+      type: 'heatmap',
+      source: 'heatmap-source',
+      paint: {
+        // Increase the heatmap weight based on frequency and property magnitude
+        'heatmap-weight': [
+          'interpolate',
+          ['linear'],
+          ['get', metric],
+          0,
+          0,
+          6,
+          1,
+        ],
+        // Increase the heatmap color weight weight by zoom level
+        // heatmap-intensity is a multiplier on top of heatmap-weight
+        'heatmap-intensity': ['interpolate', ['linear'], ['zoom'], 0, 1, 9, 3],
+        // Color ramp for heatmap.  Domain is 0 (low) to 1 (high).
+        // Begin color ramp at 0-stop with a 0-transparency color to create a blur-like effect.
+        'heatmap-color': [
+          'interpolate',
+          ['linear'],
+          ['heatmap-density'],
+          0,
+          'rgba(33,102,172,0)',
+          0.2,
+          'rgb(103,169,207)',
+          0.4,
+          'rgb(209,229,240)',
+          0.6,
+          'rgb(253,219,199)',
+          0.8,
+          'rgb(239,138,98)',
+          1,
+          'rgb(178,24,43)',
+        ],
+        // Adjust the heatmap radius by zoom level
+        'heatmap-radius': ['interpolate', ['linear'], ['zoom'], 0, 2, 9, 20],
+        // Transition from heatmap to circle layer by zoom level
+        'heatmap-opacity': ['interpolate', ['linear'], ['zoom'], 7, 1, 9, 0],
+      },
+    });
   }
 
   createHeatmap(data: MyFeatureCollection, metric: string): void {
@@ -116,10 +181,11 @@ export class HeatmapsComponent implements OnInit, OnDestroy {
           this.tpoly as unknown as Polygon
         )
       ) {
-        // if (point.val !== 30.8) points.push(point); // A station seems to be stuck at 30.8
         points.push(point);
       }
     }
+
+    console.log(points);
 
     this.min = Math.min(...points.map((p) => p.val));
     this.max = Math.max(...points.map((p) => p.val));
@@ -129,7 +195,7 @@ export class HeatmapsComponent implements OnInit, OnDestroy {
       opacity: 0.9,
       points,
       roi: this.roi,
-      renderingMode: '3d',
+      // renderingMode: '3d',
     });
 
     this.map?.addLayer(layer);
