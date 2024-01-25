@@ -123,7 +123,7 @@ export class HeatmapsComponent implements OnInit, OnDestroy {
       id: 'fill-layer',
       type: 'fill',
       source: 'fill-source',
-      //   maxzoom: 21,
+      maxzoom: 21,
       paint: {
         'fill-color': [
           'interpolate',
